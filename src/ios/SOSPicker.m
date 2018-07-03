@@ -163,7 +163,12 @@ typedef enum : NSUInteger {
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    CDVPluginResult* pluginResult = nil;
+    NSArray* emptyArray = [NSArray array];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:emptyArray];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
+    [self.viewController dismissViewControllerAnimated:YES completion:nil];
+
     NSLog(@"UIImagePickerController: User pressed cancel button");
 }
 
@@ -248,6 +253,11 @@ typedef enum : NSUInteger {
 //Optional implementation:
 -(void)assetsPickerControllerDidCancel:(GMImagePickerController *)picker
 {
+    CDVPluginResult* pluginResult = nil;
+    NSArray* emptyArray = [NSArray array];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:emptyArray];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
+    [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     NSLog(@"GMImagePicker: User pressed cancel button");
 }
 
